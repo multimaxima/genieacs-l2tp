@@ -12,7 +12,7 @@ uname -r
 cek pastikan TIDAK ada mengandung kata cloud
 
 ```
-wget https://raw.githubusercontent.com/beryindo/genieacs/refs/heads/main/vpnsetup.sh
+wget https://raw.githubusercontent.com/multimaxima/genieacs-l2tp/refs/heads/main/vpnsetup.sh
 chmod +x vpnsetup.sh
 ./vpnsetup.sh
 ```

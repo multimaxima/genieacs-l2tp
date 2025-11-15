@@ -1,11 +1,10 @@
-# genieacs
+# Genie ACS
 
 **UNTUK DI LOKAL TIDAK PERLU INSTALL L2TP, BISA LANGSUNG KE PROSES INSTALL GENIEACS**
 
 INSTALL L2TP untuk TUNNEL GENIEACS
 ```
-apt update
-apt upgrade
+sudo apt update && apt upgrade -y
 apt install curl
 uname -r
 ```

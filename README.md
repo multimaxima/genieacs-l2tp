@@ -63,6 +63,14 @@ wget https://github.com/multimaxima/genieacs-l2tp/raw/refs/heads/main/virtualPar
 mongorestore --db genieacs --drop /root/db
 systemctl start genieacs-{cwmp,ui,nbi}
 ```
+Pengaturan firewall pada mikrotik :
+```
+/ip firewall filter add chain=forward connection-state=established,related action=accept
+/ip firewall filter add chain=forward action=accept protocol=tcp src-address=[IP_L2TP_VPS] in-interface=[NAMA_INTERFACE_L2TP] out-interface=[NAMA_INTERFACE_VLAN] dst-port=58000,7547 comment="ACS -> ONU"
+/ip firewall filter add chain=forward action=accept protocol=tcp dst-address=[IP_L2TP_VPS] in-interface=[NAMA_INTERFACE_VLAN] out-interface=[NAMA_INTERFACE_VLAN] src-port=58000,7547 comment="ONU -> ACS replies"
+/ip firewall filter add chain=forward action=accept protocol=tcp dst-address=[IP_L2TP_VPS] in-interface=[NAMA_INTERFACE_VLAN] out-interface=[NAMA_INTERFACE_L2TP] dst-port=7547 comment="ONU -> ACS CWMP"
+/ip firewall filter add chain=forward in-interface=[NAMA_INTERFACE_L2TP] out-interface=[NAMA_INTERFACE_VLAN] action=accept
+```
 
 UPDATE
 add ip route otomatis ketika l2tp terhubung, caranya buat ip static pada tiap user

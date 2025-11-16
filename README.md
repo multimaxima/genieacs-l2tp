@@ -66,10 +66,14 @@ systemctl start genieacs-{cwmp,ui,nbi}
 Pengaturan firewall pada mikrotik :
 ```
 /ip firewall filter add chain=forward connection-state=established,related action=accept
-/ip firewall filter add chain=forward action=accept protocol=tcp src-address=[IP_L2TP_VPS] in-interface=[NAMA_INTERFACE_L2TP] out-interface=[NAMA_INTERFACE_VLAN] dst-port=58000,7547 comment="ACS -> ONU"
-/ip firewall filter add chain=forward action=accept protocol=tcp dst-address=[IP_L2TP_VPS] in-interface=[NAMA_INTERFACE_VLAN] out-interface=[NAMA_INTERFACE_VLAN] src-port=58000,7547 comment="ONU -> ACS replies"
-/ip firewall filter add chain=forward action=accept protocol=tcp dst-address=[IP_L2TP_VPS] in-interface=[NAMA_INTERFACE_VLAN] out-interface=[NAMA_INTERFACE_L2TP] dst-port=7547 comment="ONU -> ACS CWMP"
+/ip firewall filter add chain=forward action=accept protocol=tcp src-address=192.168.42.1 in-interface=[NAMA_INTERFACE_L2TP] out-interface=[NAMA_INTERFACE_VLAN] dst-port=58000,7547 comment="ACS -> ONU"
+/ip firewall filter add chain=forward action=accept protocol=tcp dst-address=192.168.42.1 in-interface=[NAMA_INTERFACE_VLAN] out-interface=[NAMA_INTERFACE_VLAN] src-port=58000,7547 comment="ONU -> ACS replies"
+/ip firewall filter add chain=forward action=accept protocol=tcp dst-address=192.168.42.1 in-interface=[NAMA_INTERFACE_VLAN] out-interface=[NAMA_INTERFACE_L2TP] dst-port=7547 comment="ONU -> ACS CWMP"
 /ip firewall filter add chain=forward in-interface=[NAMA_INTERFACE_L2TP] out-interface=[NAMA_INTERFACE_VLAN] action=accept
+```
+Pengaturan DHCP Server pada mikrotik :
+```
+/ip dhcp-server option add code=43 force=yes name=ACS_URL_OPTION value=0x0118687474703a2f2f3139322e3136382e34322e313a37353437
 ```
 
 UPDATE

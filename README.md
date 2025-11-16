@@ -34,8 +34,16 @@ Artinya Mikrotik anda terhubung dengan ppp0. Maka tambahkan route di VPS
 ```
 ip route add 10.0.0.0/24 dev ppp0
 ```
-**10.0.0.0/24** adalah ip lokal modem/onu.
+Tambahkan agar apabila client terputus dapat menambahkan route kembali secara otomatis 
+```
+sudo nano /etc/ppp/ip-up.d/add-routes
 
+#!/bin/sh
+ip route add 10.0.0.0/24 dev $PPP_IFACE
+
+sudo chmod +x /etc/ppp/ip-up.d/add-routes
+```
+**10.0.0.0/24** adalah ip lokal modem/onu.
 
 =========================================================================
 

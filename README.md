@@ -73,7 +73,7 @@ systemctl start genieacs-{cwmp,ui,nbi}
 ```
 Pengaturan firewall pada mikrotik :
 ```
-/ip firewall filter add chain=forward connection-state=established,related action=accept
+/ip firewall filter add chain=forward connection-state=established,related action=accept comment="ACS UDP"
 /ip firewall filter add chain=forward action=accept protocol=tcp src-address=192.168.42.1 in-interface=[NAMA_INTERFACE_L2TP] out-interface=[NAMA_INTERFACE_VLAN] dst-port=58000,7547 comment="ACS -> ONU"
 /ip firewall filter add chain=forward action=accept protocol=tcp dst-address=192.168.42.1 in-interface=[NAMA_INTERFACE_VLAN] out-interface=[NAMA_INTERFACE_VLAN] src-port=58000,7547 comment="ONU -> ACS replies"
 /ip firewall filter add chain=forward action=accept protocol=tcp dst-address=192.168.42.1 in-interface=[NAMA_INTERFACE_VLAN] out-interface=[NAMA_INTERFACE_L2TP] dst-port=7547 comment="ONU -> ACS CWMP"
